@@ -3,17 +3,54 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="manifest" href="manifest.json" />
+    <link rel="icon" href="favicon.ico" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="images/icon-192x192.png" />
+    <meta name="theme-color" content="white" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="apple-mobile-web-app-title" content="Hello World" />
+    <meta name="msapplication-TileImage" content="images/hello-icon-144.png" />
+    <meta name="msapplication-TileColor" content="#FFFFFF" />
     <title>Document</title>
     <link href="main.css" rel="stylesheet" />
     <script src="build/bundle.js" defer type="module"></script>
   </head>
 
   <body>
-    <h1>Restaurants</h1>
+    <h1 id="otsikko">Suomen opiskelijaravintolat</h1>
+    <p id="otsikkoteksti">Löydä opiskelijaravintoloita ympäri Suomea!</p>
+    <button id="darktheme">Dark/Light mode</button>
+    <!--
+    <section id="login">
+      <h2>Login</h2>
+      <p>Login to get user data</p>
+      <form id="login-form">
+        <div class="form-control">
+          <input id="username" type="text" name="username" />
+          <label for="username">Usename</label>
+        </div>
+        <div class="form-control">
+          <input id="password" type="password" name="password" />
+          <label for="password">Password</label>
+        </div>
+        <div class="form-control">
+          <input type="submit" value="Login" class="button" />
+        </div>
+      </form>
+      <h2>Profile</h2>
+      <p>Username: <span id="username-target"></span></p>
+      <p>email: <span id="email-target"></span></p>
+    </section>
+-->
+
     <h2>Filter restaurants</h2>
     <div id="napit">
-      <button id="sodexo">Sodexo</button>
-      <button id="compass">Compass Group</button>
+      <label for="sodexo"> Sodexo </label>
+      <input type="checkbox" id="sodexo" />
+      <label for="compass"> Compass </label>
+      <input type="checkbox" id="compass" />
+      <input type="text" id="cityfilter" placeholder="Etsi kaupunkia" />
       <button id="reset">Show all</button>
     </div>
     <table>
