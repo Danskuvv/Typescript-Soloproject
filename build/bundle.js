@@ -219,7 +219,7 @@ loginForm?.addEventListener('submit', async (evt) => {
   localStorage.setItem('token', loginData.token);
   addUserDataToDom(loginData.data);
 });
-*/ //LOGIN STUFF ABOVE MAYBE WORKS MAYBE NOT
+*/ //LOGIN STUFF ABOVE NOT WORING YET
 const modal = document.querySelector('dialog');
 if (!modal) {
     throw new Error('Modal not found');
@@ -245,6 +245,7 @@ const createTable = (restaurants) => {
                 const weeklyShow = document.createElement('Button');
                 const dailyShow = document.createElement('Button');
                 const closeModal = document.createElement('Button');
+                closeModal.id = "CloseModal";
                 weeklyShow.textContent = 'Show Weekly';
                 dailyShow.textContent = 'Show Daily';
                 closeModal.textContent = 'X';
@@ -286,18 +287,6 @@ const createTable = (restaurants) => {
                 modal.insertAdjacentElement('beforeend', closeModal);
                 modal.insertAdjacentHTML('beforeend', menuHtml);
                 modal.showModal();
-                /* fetch menu weekly
-                const menuWeekly = await fetchData(
-                  apiUrl + `/restaurants/weekly/${restaurant._id}/fi`
-                );
-                console.log(menuWeekly);
-        
-                const menuHtml = restaurantModal(restaurant, menuWeekly);
-                modal.insertAdjacentElement('beforeend', weeklyLabel)
-                modal.insertAdjacentHTML('beforeend', menuHtml);
-        
-                modal.showModal();
-                */
             }
             catch (error) {
                 modal.innerHTML = errorModal(error.message);
@@ -334,13 +323,14 @@ const success = async (pos) => {
         sodexoBtn.addEventListener('change', () => {
             const isSodexoChecked = sodexoBtn.checked;
             compassBtn.checked = false;
+            cityBar.value = ''; //empties city filter
             const filteredRestaurants = restaurants.filter((restaurant) => {
                 if (isSodexoChecked) {
-                    // If the checkbox is checked, include only Compass Group restaurants
+                    // include only sodexo if checked
                     return restaurant.company === 'Sodexo';
                 }
                 else {
-                    // If the checkbox is not checked, include all restaurants
+                    // include all restaurants if not checked
                     return true;
                 }
             });
@@ -350,13 +340,14 @@ const success = async (pos) => {
         compassBtn.addEventListener('change', () => {
             const isCompassChecked = compassBtn.checked;
             sodexoBtn.checked = false; //unchecks the other company.
+            cityBar.value = ''; //empties city filter
             const filteredRestaurants = restaurants.filter((restaurant) => {
                 if (isCompassChecked) {
-                    // If the checkbox is checked, include only Compass Group restaurants
+                    // include only compass if checked
                     return restaurant.company === 'Compass Group';
                 }
                 else {
-                    // If the checkbox is not checked, include all restaurants
+                    // inclule all if not checked
                     return true;
                 }
             });
@@ -367,20 +358,15 @@ const success = async (pos) => {
             createTable(restaurants);
             sodexoBtn.checked = false;
             compassBtn.checked = false;
+            cityBar.value = ''; //empties city filter
         });
         cityBar.addEventListener('input', () => {
             const searchQuery = cityBar.value.trim().toLowerCase();
-            const cityRestaurants = restaurants.filter((restaurant) => restaurant.city.toLowerCase().includes(searchQuery) && restaurant.company === 'Sodexo');
-            if (sodexoBtn.checked = true) {
-                const cityRestaurants = restaurants.filter((restaurant) => restaurant.city.toLowerCase().includes(searchQuery) && restaurant.company === 'Sodexo');
-                console.log(cityRestaurants);
-                createTable(cityRestaurants);
-            }
-            else if (compassBtn.checked = true) {
-                const cityRestaurants = restaurants.filter((restaurant) => restaurant.city.toLowerCase().includes(searchQuery) && restaurant.company === 'Compass');
-                console.log(cityRestaurants);
-                createTable(cityRestaurants);
-            }
+            const cityRestaurants = restaurants.filter((restaurant) => restaurant.city.toLowerCase().includes(searchQuery));
+            sodexoBtn.checked = false;
+            compassBtn.checked = false;
+            console.log(cityRestaurants);
+            createTable(cityRestaurants);
         });
     }
     catch (error) {

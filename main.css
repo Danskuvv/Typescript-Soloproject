@@ -30,10 +30,28 @@ h2{
   margin-bottom: 5%;
 }
 
+button{
+  font-size: 110%;
+  border-radius: 5px;
+  margin-right: 2%;
+}
+
+#reset, #closeModal{
+  background-color: rgba(255, 0, 0, 0.732);
+  color: azure;
+}
+
+#cityfilter{
+  margin-right: 1%;
+  padding: 0.3%;
+}
+
 #darktheme{
   top: 0;
   right: 0;
   position: absolute;
+  margin: 0;
+  font-size: 100%;
 }
 
 table {
